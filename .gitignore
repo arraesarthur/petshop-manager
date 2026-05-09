@@ -49,8 +49,10 @@ target/
 *.class
 
 # Maven / Gradle
-.mvn/
+.mvn/*
+!.mvn/wrapper/
 !.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.properties
 .gradle/
 
 # Spring Boot logs
