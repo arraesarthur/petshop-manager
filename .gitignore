@@ -45,6 +45,9 @@ yarn-error.log*
 # BACKEND (Spring Boot / Java)
 ############################################
 
+# Secrets / keys
+**/resources/*.key
+
 target/
 *.class
 

@@ -14,3 +14,9 @@ spring:
 
 server:
   port: ${PORT:8080}
+
+jwt:
+  public:
+    key: classpath:app.pub
+  private:
+    key: classpath:app.key
