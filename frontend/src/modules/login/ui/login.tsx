@@ -10,6 +10,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '@/core/context/auth-context'
 import { authService } from '../utils/auth-service'
+import { FormInputPassword } from '@/core/components/form-input-password'
 
 export const Login = () => {
   const navigate = useNavigate()
@@ -70,7 +71,7 @@ export const Login = () => {
               <FormInput name='nomeCompleto' label='Nome Completo' />
             ) : null}
             <FormInput name='email' label='E-mail' />
-            <FormInput name='senha' label='Senha' type='password' />
+            <FormInputPassword name='senha' label='Senha' />
             <Button
               type='submit'
               disabled={!isDirty}
