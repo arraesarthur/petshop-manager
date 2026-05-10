@@ -1,14 +1,27 @@
-import { createContext, useState } from 'react'
+import { createContext, useState, type ReactNode } from 'react'
 
-export const AuthContext = createContext(null)
+type AuthContextType = {
+  token: string | null
+  login: (token: string) => void
+  logout: () => void
+}
 
-export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(localStorage.getItem('token'))
+type AuthProviderProps = {
+  children: ReactNode
+}
 
-  function login(token) {
+export const AuthContext = createContext<AuthContextType | null>(null)
+
+export const AuthProvider = ({ children }: AuthProviderProps) => {
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem('token')
+  )
+
+  function login(token: string) {
     localStorage.setItem('token', token)
     setToken(token)
   }
+
   function logout() {
     localStorage.removeItem('token')
     setToken(null)
