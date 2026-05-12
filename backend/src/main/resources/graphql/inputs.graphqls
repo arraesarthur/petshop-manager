@@ -1,0 +1,13 @@
+input ClienteFilterInput {
+    busca: String
+    page: Int!
+    size: Int!
+}
+
+input ClienteInput {
+    id: ID
+    nome: String!
+    endereco: String!
+    telefone: String!
+    instagram: String!
+}

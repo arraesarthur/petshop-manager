@@ -1,0 +1,4 @@
+type Mutation {
+    salvarCliente(filterInput: ClienteInput): Cliente
+    removerCliente(id: ID!): Cliente
+}

@@ -1,0 +1,7 @@
+type Cliente {
+    id: ID
+    nome: String
+    telefone: String
+    instagram: String
+    endereco: String
+}

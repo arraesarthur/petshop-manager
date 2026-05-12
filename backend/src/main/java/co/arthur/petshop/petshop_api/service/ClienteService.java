@@ -1,0 +1,46 @@
+package co.arthur.petshop.petshop_api.service;
+
+import co.arthur.petshop.petshop_api.entity.Cliente;
+import co.arthur.petshop.petshop_api.input.ClienteFilterInput;
+import co.arthur.petshop.petshop_api.input.ClienteInput;
+import co.arthur.petshop.petshop_api.repository.ClienteRepository;
+import co.arthur.petshop.petshop_api.specification.ClienteSpecification;
+import com.querydsl.core.BooleanBuilder;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class ClienteService {
+    private final ClienteRepository clienteRepository;
+    private final ClienteSpecification clienteSpecification;
+
+    public Page<Cliente> findAll(ClienteFilterInput filter) {
+        BooleanBuilder where = new BooleanBuilder();
+
+        clienteSpecification.addFilterCondition(where, filter);
+        return clienteRepository.findAll(where, PageRequest.of(filter.getPage(), filter.getSize()));
+    }
+
+    public Cliente findById(Long id) {
+        return clienteRepository.findById(id).orElse(null);
+    }
+
+    public void remover(Cliente id) {
+        clienteRepository.delete(id);
+    }
+
+    @Transactional
+    public Cliente atualizar(Cliente cliente, ClienteInput filter) {
+        cliente.setNome(filter.getNome());
+        cliente.setTelefone(filter.getTelefone());
+        cliente.setInstagram(filter.getInstagram());
+        cliente.setEndereco(filter.getEndereco());
+
+        clienteRepository.save(cliente);
+        return cliente;
+    }
+}
