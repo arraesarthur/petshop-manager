@@ -19,4 +19,4 @@ jwt:
   public:
     key: classpath:app.pub
   private:
-    key: ${JWT_PRIVATE_KEY}
+    key: classpath:app.key

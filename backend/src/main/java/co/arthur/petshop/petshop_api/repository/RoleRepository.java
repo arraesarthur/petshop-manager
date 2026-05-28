@@ -1,7 +1,6 @@
 package co.arthur.petshop.petshop_api.repository;
 
 import co.arthur.petshop.petshop_api.entity.Role;
-import co.arthur.petshop.petshop_api.entity.Usuario;
 import co.arthur.petshop.petshop_api.enums.RoleEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

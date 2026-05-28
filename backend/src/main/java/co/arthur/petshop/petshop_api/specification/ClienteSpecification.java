@@ -11,6 +11,7 @@ public class ClienteSpecification {
     protected static final QCliente qCliente = QCliente.cliente;
 
     public BooleanBuilder addFilterCondition(BooleanBuilder where, ClienteFilterInput filter) {
+        where.and(QCliente.cliente.ativo.isTrue());
         if(!filter.getBusca().isBlank()){
             where.and(
                     qCliente.nome.containsIgnoreCase(filter.getBusca())

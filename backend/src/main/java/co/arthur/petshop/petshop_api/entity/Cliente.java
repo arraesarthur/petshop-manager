@@ -30,4 +30,6 @@ public class Cliente {
     private Date dataCadastro;
     @UpdateTimestamp
     private Date dataAtualizacao;
+    @Column(nullable = false)
+    private Boolean ativo = true;
 }

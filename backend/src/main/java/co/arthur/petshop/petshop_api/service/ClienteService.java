@@ -26,11 +26,13 @@ public class ClienteService {
     }
 
     public Cliente findById(Long id) {
-        return clienteRepository.findById(id).orElse(null);
+        return clienteRepository.findByIdAndAtivoTrue(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
     }
 
-    public void remover(Cliente id) {
-        clienteRepository.delete(id);
+    public void remover(Long id) {
+        Cliente cliente = findById(id);
+        cliente.setAtivo(false);
+        clienteRepository.save(cliente);
     }
 
     @Transactional

@@ -44,7 +44,7 @@ public class ClienteMutationController {
     @MutationMapping("removerCliente")
     public void removerCliente(DataFetchingEnvironment environment){
         long id = Long.parseLong(environment.getArgument("id"));
-        service.remover(service.findById(id));
+        service.remover(id);
     }
 
 }
