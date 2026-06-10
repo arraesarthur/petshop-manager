@@ -11,6 +11,9 @@ importers:
       '@fontsource-variable/inter':
         specifier: ^5.2.8
         version: 5.2.8
+      '@graphql-typed-document-node/core':
+        specifier: ^3.2.0
+        version: 3.2.0(graphql@16.14.1)
       '@hookform/error-message':
         specifier: ^2.0.1
         version: 2.0.1(react-dom@19.2.7(react@19.2.7))(react-hook-form@7.77.0(react@19.2.7))(react@19.2.7)

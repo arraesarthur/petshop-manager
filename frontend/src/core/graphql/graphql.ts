@@ -1,21 +1,73 @@
-/* eslint-disable */
 /** Internal type. DO NOT USE DIRECTLY. */
 type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** Internal type. DO NOT USE DIRECTLY. */
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
-import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
+/** All built-in and custom scalars, mapped to their actual values */
+export type Scalars = {
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+};
+
+export type Cliente = {
+  endereco: Maybe<Scalars['String']['output']>;
+  id: Maybe<Scalars['ID']['output']>;
+  instagram: Maybe<Scalars['String']['output']>;
+  nome: Maybe<Scalars['String']['output']>;
+  telefone: Maybe<Scalars['String']['output']>;
+};
+
 export type ClienteFilterInput = {
-  busca?: string | null | undefined;
-  page: number;
-  size: number;
+  busca?: InputMaybe<Scalars['String']['input']>;
+  page: Scalars['Int']['input'];
+  size: Scalars['Int']['input'];
 };
 
 export type ClienteInput = {
-  endereco: string;
-  id?: string | number | null | undefined;
-  instagram: string;
-  nome: string;
-  telefone: string;
+  endereco: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['ID']['input']>;
+  instagram: Scalars['String']['input'];
+  nome: Scalars['String']['input'];
+  telefone: Scalars['String']['input'];
+};
+
+export type ClientesPaged = {
+  content: Maybe<Array<Maybe<Cliente>>>;
+  totalElements: Maybe<Scalars['Int']['output']>;
+};
+
+export type Mutation = {
+  removerCliente: Maybe<Scalars['Boolean']['output']>;
+  salvarCliente: Maybe<Cliente>;
+};
+
+
+export type MutationRemoverClienteArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationSalvarClienteArgs = {
+  filterInput: InputMaybe<ClienteInput>;
+};
+
+export type Query = {
+  cliente: Maybe<Cliente>;
+  clientes: Maybe<ClientesPaged>;
+};
+
+
+export type QueryClienteArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QueryClientesArgs = {
+  filterInput: InputMaybe<ClienteFilterInput>;
 };
 
 export type RemoverClienteMutationVariables = Exact<{
@@ -47,9 +99,3 @@ export type ClientesPagedQueryVariables = Exact<{
 export type ClientesPagedQuery = { clientes: { totalElements: number | null, content: Array<{ id: string | null, nome: string | null, telefone: string | null, instagram: string | null, endereco: string | null } | null> | null } | null };
 
 export type ClienteFragmentFragment = { id: string | null, nome: string | null, telefone: string | null, instagram: string | null, endereco: string | null };
-
-export const ClienteFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"clienteFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Cliente"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nome"}},{"kind":"Field","name":{"kind":"Name","value":"telefone"}},{"kind":"Field","name":{"kind":"Name","value":"instagram"}},{"kind":"Field","name":{"kind":"Name","value":"endereco"}}]}}]} as unknown as DocumentNode<ClienteFragmentFragment, unknown>;
-export const RemoverClienteDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RemoverCliente"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"removerCliente"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}]}}]} as unknown as DocumentNode<RemoverClienteMutation, RemoverClienteMutationVariables>;
-export const ClienteDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"cliente"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ID"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cliente"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nome"}},{"kind":"Field","name":{"kind":"Name","value":"telefone"}},{"kind":"Field","name":{"kind":"Name","value":"instagram"}},{"kind":"Field","name":{"kind":"Name","value":"endereco"}}]}}]}}]} as unknown as DocumentNode<ClienteQuery, ClienteQueryVariables>;
-export const SalvarClienteDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"salvarCliente"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filterInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ClienteInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"salvarCliente"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filterInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filterInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nome"}},{"kind":"Field","name":{"kind":"Name","value":"telefone"}},{"kind":"Field","name":{"kind":"Name","value":"instagram"}},{"kind":"Field","name":{"kind":"Name","value":"endereco"}}]}}]}}]} as unknown as DocumentNode<SalvarClienteMutation, SalvarClienteMutationVariables>;
-export const ClientesPagedDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ClientesPaged"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filterInput"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ClienteFilterInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"clientes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filterInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filterInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"content"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"clienteFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"totalElements"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"clienteFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Cliente"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"nome"}},{"kind":"Field","name":{"kind":"Name","value":"telefone"}},{"kind":"Field","name":{"kind":"Name","value":"instagram"}},{"kind":"Field","name":{"kind":"Name","value":"endereco"}}]}}]} as unknown as DocumentNode<ClientesPagedQuery, ClientesPagedQueryVariables>;

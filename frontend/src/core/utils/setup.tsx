@@ -24,7 +24,7 @@ Object.defineProperty(window, 'matchMedia', {
   }))
 })
 
-global.IntersectionObserver = vi.fn(() => ({
+globalThis.IntersectionObserver = vi.fn(() => ({
   disconnect: vi.fn(),
   observe: vi.fn(),
   unobserve: vi.fn(),

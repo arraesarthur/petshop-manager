@@ -3,7 +3,6 @@ import { DELETE_CLIENTE_MUTATION } from '@/modules/cliente-core/data/cliente'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { SALVAR_CLIENTE_MUTATION } from '../data/cliente'
-import type { RemoverClienteMutation, RemoverClienteMutationVariables, SalvarClienteMutation, SalvarClienteMutationVariables } from '@/core/graphql/graphql'
 
 type salvarClienteInput = {
   id?: string
@@ -18,7 +17,7 @@ export const useClienteEdicaoHandler = () => {
   const fetch = useFetcher()
   const queryClient = useQueryClient()
 
-  const removerCliente = useMutation<RemoverClienteMutation, RemoverClienteMutationVariables>({
+  const removerCliente = useMutation({
     mutationKey: ['cliente-remocao-mutation'],
     mutationFn: (id: string) => {
       return fetch(DELETE_CLIENTE_MUTATION, {
@@ -33,7 +32,7 @@ export const useClienteEdicaoHandler = () => {
     }
   })
 
-  const salvarCliente = useMutation<SalvarClienteMutation, SalvarClienteMutationVariables>({
+  const salvarCliente = useMutation({
     mutationKey: ['cliente-salvar-mutation'],
     mutationFn: (input: salvarClienteInput) => {
       return fetch(SALVAR_CLIENTE_MUTATION, {

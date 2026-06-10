@@ -1,5 +1,5 @@
 import type {
-  ClientesPagedQuery,
+  ClientesPaged,
   ClientesPagedQueryVariables
 } from '@/core/graphql/graphql'
 import { rowsPerPageOptions } from '@/core/utils/rows-per-page'
@@ -45,7 +45,7 @@ export const useClienteListagem = () => {
     error,
     isFetching: loading
   } = useQuery<
-    { clientes: ClientesPagedQuery },
+    { clientes: ClientesPaged },
     ClientesPagedQueryVariables
   >({
     queryKey: ['clientes-paged-query', variables],
