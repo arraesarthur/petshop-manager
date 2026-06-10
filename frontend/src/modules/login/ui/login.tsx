@@ -1,15 +1,17 @@
 import { FormProvider } from 'react-hook-form'
 import { FormInput } from '@/core/components/form-input'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { Button } from '../../../components/ui/button'
 import { useLoginForm } from '../hooks/use-login-form'
 import { useGoogleLogin, type TokenResponse } from '@react-oauth/google'
 import { useNavigate } from 'react-router-dom'
 import { authService } from '../utils/auth-service'
 import { FormInputPassword } from '@/core/components/form-input-password'
+import { AuthContext } from '@/core/context/auth-context'
 
 export const Login = () => {
   const navigate = useNavigate()
+  const {login} = useContext(AuthContext)
   const [mode, setMode] = useState('login')
   const isLogin = mode === 'login'
 
@@ -21,9 +23,10 @@ export const Login = () => {
   } = form
 
   const handleGoogleSuccess = async (tokenResponse: TokenResponse) => {
+    console.log()
     try {
       const data = await authService.googleLogin(tokenResponse.access_token)
-      login(data.accessToken)
+      login(data.accessToken, data.nomeCompleto, data.email)
       navigate('/')
     } catch (error) {
       console.error('Google login error:', error)
