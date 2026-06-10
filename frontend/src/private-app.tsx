@@ -1,13 +1,19 @@
 import { Navigate } from 'react-router-dom'
-import { AuthContext, AuthProvider } from './core/context/auth-context'
+import { AuthContext } from './core/context/auth-context'
 import { useContext } from 'react'
+import { Header } from './core/components/header'
 
 export const PrivateApp = ({ children }) => {
- const { token } = useContext(AuthContext)
+  const auth = useContext(AuthContext)
 
-  if (!token) {
-    return <Navigate to='/login' replace />
+  if (!auth?.token) {
+    return <Navigate to="/login" replace />
   }
 
-  return <AuthProvider>{children}</AuthProvider>
+  return (
+    <>
+      <Header />
+      {children}
+    </>
+  )
 }

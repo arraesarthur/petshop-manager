@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,7 +23,8 @@ public class ClienteService {
         BooleanBuilder where = new BooleanBuilder();
 
         clienteSpecification.addFilterCondition(where, filter);
-        return clienteRepository.findAll(where, PageRequest.of(filter.getPage(), filter.getSize()));
+        Sort sortOrdemAlfabetica = Sort.by("nome").ascending();
+        return clienteRepository.findAll(where, PageRequest.of(filter.getPage(), filter.getSize(), sortOrdemAlfabetica));
     }
 
     public Cliente findById(Long id) {

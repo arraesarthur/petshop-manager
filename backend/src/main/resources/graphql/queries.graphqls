@@ -1,4 +1,4 @@
 type Query {
     cliente(id: ID!): Cliente
-    clientes(filterInput: ClienteFilterInput): [Cliente]
+    clientes(filterInput: ClienteFilterInput): ClientesPaged
 }

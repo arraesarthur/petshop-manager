@@ -5,3 +5,8 @@ type Cliente {
     instagram: String
     endereco: String
 }
+
+type ClientesPaged {
+    content: [Cliente]
+    totalElements: Int
+}
