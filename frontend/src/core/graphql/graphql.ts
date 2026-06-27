@@ -34,7 +34,7 @@ export type PetInput = {
   especie: string;
   id?: string | number | null | undefined;
   nome: string;
-  observacao: string;
+  observacao?: string | null | undefined;
   porte: string;
   racaId: string | number;
   sexo: string;
@@ -70,6 +70,13 @@ export type ClientesPagedQuery = { clientesPaged: { totalElements: number | null
 
 export type ClienteFragmentFragment = { id: string | null, nome: string | null, telefone: string | null, instagram: string | null, endereco: string | null };
 
+export type ClientesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ClientesQuery = { clientes: Array<{ id: string | null, nome: string | null } | null> | null };
+
+export type ClientesFragmentFragment = { id: string | null, nome: string | null };
+
 export type RemoverPetMutationVariables = Exact<{
   id: string | number;
 }>;
@@ -97,20 +104,6 @@ export type SalvarPetMutationVariables = Exact<{
 
 
 export type SalvarPetMutation = { salvarPet: { id: string | null, nome: string | null, especie: string | null, sexo: string | null, porte: string | null, observacao: string | null, dataNascimento: unknown, raca: { id: string | null, nome: string | null } | null, cliente: { id: string | null, nome: string | null } | null } | null };
-
-export type RemoverPetMutationVariables = Exact<{
-  id: string | number;
-}>;
-
-
-export type RemoverPetMutation = { removerPet: boolean | null };
-
-export type ClientesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ClientesQuery = { clientes: Array<{ id: string | null, nome: string | null } | null> | null };
-
-export type ClientesFragmentFragment = { id: string | null, nome: string | null };
 
 export type PetsPagedQueryVariables = Exact<{
   filterInput?: PetFilterInput | null | undefined;
