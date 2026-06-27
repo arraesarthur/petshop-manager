@@ -16,7 +16,7 @@ export const ClienteEdicao = () => {
     formState: { isDirty }
   } = form
   return (
-    <div className='container mx-auto py-10 max-w-5xl px-4 sm:px-6 lg:px-8'>
+    <div className='container mx-auto py-10 max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6'>
       <div className='mb-6 border-b border-pink-100 pb-5'>
         <h1 className='text-3xl font-bold tracking-tight text-foreground'>
           Editar {initialValues?.nome || 'Cliente'}
@@ -33,9 +33,9 @@ export const ClienteEdicao = () => {
           >
             <div className='grid grid-cols-1 sm:grid-cols-2 gap-5'>
               <FormInput name='nome' label='Nome' maxLength={60} />
-              <FormInput name='telefone' label='Telefone' maxLength={11}/>
-              <FormInput name='instagram' label='Instagram' maxLength={50}/>
-              <FormInput name='endereco' label='Endereço'/>
+              <FormInput name='telefone' label='Telefone' maxLength={11} />
+              <FormInput name='instagram' label='Instagram' maxLength={50} />
+              <FormInput name='endereco' label='Endereço' />
             </div>
             <div className='flex flex-col sm:flex-row justify-end gap-3 pt-6 border-t border-pink-100/60 mt-2'>
               <ModalConfirmacao
@@ -77,13 +77,13 @@ export const ClienteEdicao = () => {
                   type='button'
                   disabled={!isNew}
                   className='
-                  bg-yellow-300 text-black
-                  hover:bg-yellow-400 hover:text-yellow-950
-                  border border-yellow-400
-                  transition-colors
-                  rounded-lg
-                  disabled:opacity-50 disabled:cursor-not-allowed
-                '
+                    bg-yellow-300/80 text-yellow-900
+                    hover:bg-yellow-400/80 hover:text-yellow-950
+                      border border-yellow-400/60
+                      transition-colors
+                      rounded-lg
+                      disabled:opacity-50 disabled:cursor-not-allowed
+'
                 >
                   Remover
                 </Button>

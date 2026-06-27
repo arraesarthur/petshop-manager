@@ -1,3 +1,9 @@
+enum EspecieEnum {
+    CACHORRO,
+    GATO,
+    OUTROS
+}
+
 type Cliente {
     id: ID
     nome: String
@@ -8,5 +14,28 @@ type Cliente {
 
 type ClientesPaged {
     content: [Cliente]
+    totalElements: Int
+}
+
+type Raca {
+    id: ID
+    nome: String
+    especie: EspecieEnum
+}
+
+type Pet {
+    id: ID
+    nome: String
+    especie: String
+    raca: Raca
+    sexo: String
+    porte: String
+    cliente: Cliente
+    observacao: String
+    dataNascimento: Date
+}
+
+type PetsPaged {
+    content: [Pet]
     totalElements: Int
 }

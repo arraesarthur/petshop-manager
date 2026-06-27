@@ -2,7 +2,7 @@ import { gql } from 'graphql-request'
 
 export const CLIENTES_QUERY = gql`
   query ClientesPaged($filterInput: ClienteFilterInput) {
-    clientes(filterInput: $filterInput) {
+    clientesPaged(filterInput: $filterInput) {
       content {
         ...clienteFragment
       }

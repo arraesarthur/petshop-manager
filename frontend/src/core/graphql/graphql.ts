@@ -2,72 +2,42 @@
 type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** Internal type. DO NOT USE DIRECTLY. */
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
-export type Maybe<T> = T | null;
-export type InputMaybe<T> = Maybe<T>;
-/** All built-in and custom scalars, mapped to their actual values */
-export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
-};
-
-export type Cliente = {
-  endereco: Maybe<Scalars['String']['output']>;
-  id: Maybe<Scalars['ID']['output']>;
-  instagram: Maybe<Scalars['String']['output']>;
-  nome: Maybe<Scalars['String']['output']>;
-  telefone: Maybe<Scalars['String']['output']>;
-};
-
 export type ClienteFilterInput = {
-  busca?: InputMaybe<Scalars['String']['input']>;
-  page: Scalars['Int']['input'];
-  size: Scalars['Int']['input'];
+  busca?: string | null | undefined;
+  page: number;
+  size: number;
 };
 
 export type ClienteInput = {
-  endereco: Scalars['String']['input'];
-  id?: InputMaybe<Scalars['ID']['input']>;
-  instagram: Scalars['String']['input'];
-  nome: Scalars['String']['input'];
-  telefone: Scalars['String']['input'];
+  endereco: string;
+  id?: string | number | null | undefined;
+  instagram: string;
+  nome: string;
+  telefone: string;
 };
 
-export type ClientesPaged = {
-  content: Maybe<Array<Maybe<Cliente>>>;
-  totalElements: Maybe<Scalars['Int']['output']>;
+export type EspecieEnum =
+  | 'CACHORRO'
+  | 'GATO'
+  | 'OUTROS';
+
+export type PetFilterInput = {
+  busca?: string | null | undefined;
+  clienteId?: number | null | undefined;
+  page: number;
+  size: number;
 };
 
-export type Mutation = {
-  removerCliente: Maybe<Scalars['Boolean']['output']>;
-  salvarCliente: Maybe<Cliente>;
-};
-
-
-export type MutationRemoverClienteArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationSalvarClienteArgs = {
-  filterInput: InputMaybe<ClienteInput>;
-};
-
-export type Query = {
-  cliente: Maybe<Cliente>;
-  clientes: Maybe<ClientesPaged>;
-};
-
-
-export type QueryClienteArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type QueryClientesArgs = {
-  filterInput: InputMaybe<ClienteFilterInput>;
+export type PetInput = {
+  clienteId: string | number;
+  dataNascimento: unknown;
+  especie: string;
+  id?: string | number | null | undefined;
+  nome: string;
+  observacao: string;
+  porte: string;
+  racaId: string | number;
+  sexo: string;
 };
 
 export type RemoverClienteMutationVariables = Exact<{
@@ -96,6 +66,57 @@ export type ClientesPagedQueryVariables = Exact<{
 }>;
 
 
-export type ClientesPagedQuery = { clientes: { totalElements: number | null, content: Array<{ id: string | null, nome: string | null, telefone: string | null, instagram: string | null, endereco: string | null } | null> | null } | null };
+export type ClientesPagedQuery = { clientesPaged: { totalElements: number | null, content: Array<{ id: string | null, nome: string | null, telefone: string | null, instagram: string | null, endereco: string | null } | null> | null } | null };
 
 export type ClienteFragmentFragment = { id: string | null, nome: string | null, telefone: string | null, instagram: string | null, endereco: string | null };
+
+export type RemoverPetMutationVariables = Exact<{
+  id: string | number;
+}>;
+
+
+export type RemoverPetMutation = { removerPet: boolean | null };
+
+export type PetQueryVariables = Exact<{
+  id: string | number;
+}>;
+
+
+export type PetQuery = { pet: { id: string | null, nome: string | null, especie: string | null, sexo: string | null, porte: string | null, observacao: string | null, dataNascimento: unknown, raca: { id: string | null, nome: string | null } | null, cliente: { id: string | null, nome: string | null } | null } | null };
+
+export type RacasQueryVariables = Exact<{
+  especie: EspecieEnum;
+}>;
+
+
+export type RacasQuery = { racas: Array<{ id: string | null, nome: string | null, especie: EspecieEnum | null } | null> | null };
+
+export type SalvarPetMutationVariables = Exact<{
+  filterInput: PetInput;
+}>;
+
+
+export type SalvarPetMutation = { salvarPet: { id: string | null, nome: string | null, especie: string | null, sexo: string | null, porte: string | null, observacao: string | null, dataNascimento: unknown, raca: { id: string | null, nome: string | null } | null, cliente: { id: string | null, nome: string | null } | null } | null };
+
+export type RemoverPetMutationVariables = Exact<{
+  id: string | number;
+}>;
+
+
+export type RemoverPetMutation = { removerPet: boolean | null };
+
+export type ClientesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ClientesQuery = { clientes: Array<{ id: string | null, nome: string | null } | null> | null };
+
+export type ClientesFragmentFragment = { id: string | null, nome: string | null };
+
+export type PetsPagedQueryVariables = Exact<{
+  filterInput?: PetFilterInput | null | undefined;
+}>;
+
+
+export type PetsPagedQuery = { pets: { totalElements: number | null, content: Array<{ id: string | null, nome: string | null, sexo: string | null, porte: string | null, especie: string | null, raca: { nome: string | null } | null, cliente: { nome: string | null, id: string | null } | null } | null> | null } | null };
+
+export type PetFragmentFragment = { id: string | null, nome: string | null, sexo: string | null, porte: string | null, especie: string | null, raca: { nome: string | null } | null, cliente: { nome: string | null, id: string | null } | null };

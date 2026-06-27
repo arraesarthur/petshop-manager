@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useFetcher } from '@/core/hooks/use-fetcher'
 import { DELETE_CLIENTE_MUTATION } from '@/modules/cliente-core/data/cliente'
+import { toast } from 'sonner'
 
 export const useClienteHandler = () => {
   const navigate = useNavigate()
@@ -30,7 +31,14 @@ export const useClienteHandler = () => {
     navigate(`/editar/clientes/${id}`)
   }
   const handleRemover = (id: string) => {
-    removerCliente.mutate(id)
+    removerCliente.mutate(id, {
+      onSuccess: () => {
+        toast.success('Cliente removido com sucesso')
+      },
+      onError: error => {
+        toast.error('Erro: ' + error?.response?.errors?.[0]?.message)
+      }
+    })
   }
   return {
     handleEditar,

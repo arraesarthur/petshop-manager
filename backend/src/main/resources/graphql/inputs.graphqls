@@ -11,3 +11,22 @@ input ClienteInput {
     telefone: String!
     instagram: String!
 }
+
+input PetFilterInput {
+    busca: String
+    clienteId: Int
+    page: Int!
+    size: Int!
+}
+
+input PetInput {
+    id: ID
+    nome: String!
+    especie: String!
+    racaId: ID!
+    sexo: String!
+    porte: String!
+    clienteId: ID!
+    observacao: String
+    dataNascimento: Date!
+}

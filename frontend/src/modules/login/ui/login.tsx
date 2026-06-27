@@ -23,10 +23,9 @@ export const Login = () => {
   } = form
 
   const handleGoogleSuccess = async (tokenResponse: TokenResponse) => {
-    console.log()
     try {
       const data = await authService.googleLogin(tokenResponse.access_token)
-      login(data.accessToken, data.nomeCompleto, data.email)
+      login(data.accessToken, data.nomeCompleto, data.email, data.expiresIn)
       navigate('/')
     } catch (error) {
       console.error('Google login error:', error)

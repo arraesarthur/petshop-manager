@@ -1,5 +1,5 @@
 import type {
-  ClientesPaged,
+  ClientesPagedQuery,
   ClientesPagedQueryVariables
 } from '@/core/graphql/graphql'
 import { rowsPerPageOptions } from '@/core/utils/rows-per-page'
@@ -14,6 +14,7 @@ export const useClienteListagem = () => {
 
   const [busca, setBusca] = useState('')
   const [debouncedBusca, setDebouncedBusca] = useState('')
+  const [clienteId, setClienteId] = useState<number | undefined>()
 
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -33,11 +34,12 @@ export const useClienteListagem = () => {
     () => ({
       filterInput: {
         busca: debouncedBusca,
+        clienteId,
         page: pagination.pageIndex,
         size: pagination.pageSize
       }
     }),
-    [debouncedBusca, pagination.pageIndex, pagination.pageSize]
+    [debouncedBusca, pagination.pageIndex, pagination.pageSize, clienteId]
   )
 
   const {
@@ -45,7 +47,7 @@ export const useClienteListagem = () => {
     error,
     isFetching: loading
   } = useQuery<
-    { clientes: ClientesPaged },
+    ClientesPagedQuery,
     ClientesPagedQueryVariables
   >({
     queryKey: ['clientes-paged-query', variables],
@@ -53,13 +55,15 @@ export const useClienteListagem = () => {
     placeholderData: keepPreviousData
   })
   return {
-    data: data?.clientes?.content ?? [],
-    totalElements: data?.clientes?.totalElements ?? 0,
+    data: data?.clientesPaged?.content ?? [],
+    totalElements: data?.clientesPaged?.totalElements ?? 0,
     error,
     loading,
     busca,
     setBusca,
     pagination,
-    setPagination
+    setPagination,
+    clienteId,
+    setClienteId
   }
 }

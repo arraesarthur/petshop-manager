@@ -37,7 +37,7 @@ export const useClienteEdicaoForm = (id: string) => {
       await salvar(data)
       navigate('/clientes')
     } catch (error) {
-      console.log('Erro ao salvar cliente:', error)
+      console.error('Erro ao salvar cliente:', error)
     }
   }
 

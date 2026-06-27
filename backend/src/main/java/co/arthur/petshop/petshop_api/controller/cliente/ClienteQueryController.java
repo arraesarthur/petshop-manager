@@ -12,6 +12,7 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -20,8 +21,8 @@ public class ClienteQueryController {
     private final ClienteService service;
     private final ObjectMapper objectMapper;
 
-    @QueryMapping(name = "clientes")
-    public Page<Cliente> clientes(DataFetchingEnvironment environment) {
+    @QueryMapping(name = "clientesPaged")
+    public Page<Cliente> clientesPaged(DataFetchingEnvironment environment) {
         Map<String, Object> input =
                 environment.getArgument("filterInput");
 
@@ -31,7 +32,12 @@ public class ClienteQueryController {
                         ClienteFilterInput.class
                 );
 
-        return service.findAll(filter);
+        return service.findAllPaged(filter);
+    }
+
+    @QueryMapping(name = "clientes")
+    public List<Cliente> clientes(DataFetchingEnvironment environment){
+        return service.findAll();
     }
 
     @QueryMapping(name = "cliente")

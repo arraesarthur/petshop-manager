@@ -86,7 +86,7 @@ import static org.mockito.ArgumentMatchers.eq;
                 any(Pageable.class)
         )).thenReturn(page);
 
-        Page<Cliente> resultado = clienteService.findAll(filter);
+        Page<Cliente> resultado = clienteService.findAllPaged(filter);
 
         assertThat(resultado).isNotNull();
         assertThat(resultado.getContent()).hasSize(1);

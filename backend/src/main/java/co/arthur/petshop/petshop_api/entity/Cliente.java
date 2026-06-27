@@ -1,19 +1,16 @@
 package co.arthur.petshop.petshop_api.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "cliente")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cliente {
@@ -25,6 +22,9 @@ public class Cliente {
     private String telefone;
     private String instagram;
     private String endereco;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Pet> pets;
 
     @CreationTimestamp
     private Date dataCadastro;

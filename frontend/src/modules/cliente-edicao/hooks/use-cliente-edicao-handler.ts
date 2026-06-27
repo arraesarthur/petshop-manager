@@ -3,6 +3,7 @@ import { DELETE_CLIENTE_MUTATION } from '@/modules/cliente-core/data/cliente'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { SALVAR_CLIENTE_MUTATION } from '../data/cliente'
+import { toast } from 'sonner'
 
 type salvarClienteInput = {
   id?: string
@@ -51,11 +52,24 @@ export const useClienteEdicaoHandler = () => {
     navigate('/clientes')
   }
   const remover = (id: string) => {
-    removerCliente.mutate(id)
-    navigate('/clientes')
+    removerCliente.mutate(id, {
+      onSuccess: () => {
+        toast.success('Cliente removido com sucesso')
+        navigate('/clientes')
+      },
+      onError: error => {
+        toast.error('Erro: ' + error?.response?.errors?.[0]?.message)
+      }
+    })
   }
   const salvar = async (input: salvarClienteInput) => {
-    return await salvarCliente.mutateAsync(input)
+    try {
+      const cliente = await salvarCliente.mutateAsync(input)
+      toast.success(`Cliente ${cliente.salvarCliente.nome} salvo com sucesso`)
+      navigate('/clientes')
+    } catch (error) {
+      toast.error('Erro: ' + error?.response?.errors?.[0]?.message)
+    }
   }
   return {
     cancelar,
