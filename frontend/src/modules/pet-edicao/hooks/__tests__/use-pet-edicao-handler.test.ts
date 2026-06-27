@@ -1,6 +1,6 @@
 import { renderHook, act } from '@testing-library/react'
 import { describe, expect, it, vi, beforeEach } from 'vitest'
-import { useClienteEdicaoHandler } from '../use-cliente-edicao-handler'
+import { usePetEdicaoHandler } from '../use-pet-edicao-handler'
 import { useMutation } from '@tanstack/react-query'
 
 const navigate = vi.fn()
@@ -22,7 +22,7 @@ vi.mock('@tanstack/react-query', () => ({
   useMutation: vi.fn()
 }))
 
-describe('useClienteEdicaoHandler', () => {
+describe('usePetEdicaoHandler', () => {
   beforeEach(() => {
     vi.clearAllMocks()
 
@@ -35,18 +35,18 @@ describe('useClienteEdicaoHandler', () => {
       } as never)
   })
 
-  it('should navigate to clientes when cancelar is called', () => {
-    const { result } = renderHook(() => useClienteEdicaoHandler())
+  it('should navigate to pets when cancelar is called', () => {
+    const { result } = renderHook(() => usePetEdicaoHandler())
 
     act(() => {
       result.current.cancelar()
     })
 
-    expect(navigate).toHaveBeenCalledWith('/clientes')
+    expect(navigate).toHaveBeenCalledWith('/pets')
   })
 
-  it('should remove client and navigate', () => {
-    const { result } = renderHook(() => useClienteEdicaoHandler())
+  it('should remove pet and call mutate with id and callbacks', () => {
+    const { result } = renderHook(() => usePetEdicaoHandler())
 
     act(() => {
       result.current.remover('1')
@@ -61,17 +61,22 @@ describe('useClienteEdicaoHandler', () => {
     )
   })
 
-  it('should save client', async () => {
+  it('should save pet calling mutateAsync with payload', async () => {
     const payload = {
-      nome: 'Arthur',
-      telefone: '11999999999',
-      instagram: '@arthur',
-      endereco: 'Rua X'
+      id: '1',
+      nome: 'Thor',
+      especie: 'CACHORRO',
+      racaId: '1',
+      sexo: 'MACHO',
+      porte: 'GRANDE',
+      clienteId: '1',
+      observacao: 'Muito energético',
+      dataNascimento: '2020-05-10'
     }
 
-    mutateAsync.mockResolvedValue({})
+    mutateAsync.mockResolvedValue({ salvarPet: { nome: 'Thor' } })
 
-    const { result } = renderHook(() => useClienteEdicaoHandler())
+    const { result } = renderHook(() => usePetEdicaoHandler())
 
     await act(async () => {
       await result.current.salvar(payload)

@@ -1,6 +1,6 @@
 import { renderHook, act } from '@testing-library/react'
 import { describe, expect, it, vi, beforeEach } from 'vitest'
-import { useClienteHandler } from '../use-cliente-handler'
+import { usePetHandler } from '../use-pet-handler'
 
 const mockNavigate = vi.fn()
 const mockMutate = vi.fn()
@@ -23,30 +23,30 @@ vi.mock('@/core/hooks/use-fetcher', () => ({
   useFetcher: () => vi.fn()
 }))
 
-describe('useClienteHandler', () => {
+describe('usePetHandler', () => {
   beforeEach(() => {
     vi.clearAllMocks()
   })
 
   it('should navigate to edit page', () => {
-    const { result } = renderHook(() => useClienteHandler())
+    const { result } = renderHook(() => usePetHandler())
 
     act(() => {
-      result.current.handleEditar('9')
+      result.current.handleEditar('1')
     })
 
-    expect(mockNavigate).toHaveBeenCalledWith('/editar/clientes/9')
+    expect(mockNavigate).toHaveBeenCalledWith('/editar/pets/1')
   })
 
-  it('should call mutate when removing client', () => {
-    const { result } = renderHook(() => useClienteHandler())
+  it('should call mutate when removing pet', () => {
+    const { result } = renderHook(() => usePetHandler())
 
     act(() => {
-      result.current.handleRemover('9')
+      result.current.handleRemover('1')
     })
 
     expect(mockMutate).toHaveBeenCalledWith(
-      '9',
+      '1',
       expect.objectContaining({
         onSuccess: expect.any(Function),
         onError: expect.any(Function)

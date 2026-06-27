@@ -150,7 +150,7 @@ export function DataTable<TData, TValue>({
             ))
           ) : (
             <div className='p-8 text-center text-sm text-muted-foreground border border-dashed border-pink-100/60 rounded-xl'>
-              Nenhum cliente encontrado.
+              Nenhum dado encontrado.
             </div>
           )}
         </div>
@@ -208,7 +208,7 @@ export function DataTable<TData, TValue>({
                     colSpan={columns.length}
                     className='h-32 text-center text-muted-foreground'
                   >
-                    Nenhum cliente encontrado.
+                    Nenhum dado encontrado.
                   </TableCell>
                 </TableRow>
               )}

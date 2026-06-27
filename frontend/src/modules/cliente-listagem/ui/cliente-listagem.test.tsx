@@ -64,16 +64,17 @@ vi.mocked(useClienteListagem).mockReturnValue(contentMock)
 describe('Cliente Listagem', () => {
   it('should render list when data has clientes', async () => {
     await customRender(<ClienteListagem />)
-    const nome = screen.getByText('Cliente 1')
-    const telefone = screen.getByText('11999999999')
-    const instagram = screen.getByText('@testex')
-    const endereco = screen.getByText('Rua X')
+    const nomes = screen.getAllByText('Cliente 1')
+    const telefones = screen.getAllByText('11999999999')
+    const instagrams = screen.getAllByText('@testex')
+    const enderecos = screen.getAllByText('Rua X')
 
-    expect(nome).toBeInTheDocument()
-    expect(telefone).toBeInTheDocument()
-    expect(instagram).toBeInTheDocument()
-    expect(endereco).toBeInTheDocument()
+    expect(nomes.length).toBeGreaterThan(0)
+    expect(telefones.length).toBeGreaterThan(0)
+    expect(instagrams.length).toBeGreaterThan(0)
+    expect(enderecos.length).toBeGreaterThan(0)
   })
+
   it('should render new client link', async () => {
     await customRender(<ClienteListagem />)
 
@@ -83,18 +84,21 @@ describe('Cliente Listagem', () => {
 
     expect(link).toHaveAttribute('href', '/clientes/novo')
   })
+
   it('should navigate when row is clicked', async () => {
     await customRender(<ClienteListagem />)
 
-    await userEvent.click(screen.getByText('Cliente 1'))
+    await userEvent.click(screen.getAllByText('Cliente 1')[0])
 
     expect(mockNavigate).toHaveBeenCalledWith('/editar/clientes/9')
   })
+
   it('should render empty list when data has not clientes', async () => {
     vi.mocked(useClienteListagem).mockReturnValue(noContentMock)
     await customRender(<ClienteListagem />)
-    const text = screen.getByText('Nenhum cliente encontrado.')
 
-    expect(text).toBeInTheDocument()
+    const texts = screen.getAllByText('Nenhum dado encontrado.')
+
+    expect(texts.length).toBeGreaterThan(0)
   })
 })
