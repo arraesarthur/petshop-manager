@@ -10,28 +10,37 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
+    defaults:
+      run:
+        working-directory: frontend
     steps:
       - name: checkout
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
+      - name: setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: setup node
         uses: actions/setup-node@v6
         with:
           node-version: 22
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
 
       - name: install and prepare
-        run: npm install
+        run: pnpm install --frozen-lockfile
 
       - name: run test suites
-        run: npm test:cov
+        run: pnpm test:cov
 
       - name: lint
-        working-directory: './frontend'
-        run: npm lint
+        run: pnpm lint
 
       - name: build
-        run: npm build:web
+        run: pnpm build
         env:
           ENV_MODE: production

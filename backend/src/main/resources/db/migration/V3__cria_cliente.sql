@@ -5,5 +5,6 @@ CREATE TABLE IF NOT EXISTS cliente (
                     instagram varchar(50),
                     endereco varchar(100),
                     data_cadastro timestamp,
-                    data_atualizacao timestamp
+                    data_atualizacao timestamp,
+                    ativo boolean
 );

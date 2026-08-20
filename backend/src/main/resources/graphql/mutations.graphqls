@@ -1,4 +1,10 @@
 type Mutation {
     salvarCliente(filterInput: ClienteInput): Cliente
-    removerCliente(id: ID!): Cliente
+    removerCliente(id: ID!): Boolean
+
+    salvarPet(filterInput: PetInput): Pet
+    removerPet(id: ID!): Boolean
+
+    salvarServico(filterInput: ServicoInput): Servico
+    removerServico(id: ID!): Boolean
 }

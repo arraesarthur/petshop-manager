@@ -1,7 +1,55 @@
+enum EspecieEnum {
+    CACHORRO,
+    GATO,
+    OUTROS
+}
+
 type Cliente {
     id: ID
     nome: String
     telefone: String
     instagram: String
     endereco: String
+}
+
+type ClientesPaged {
+    content: [Cliente]
+    totalElements: Int
+}
+
+type Raca {
+    id: ID
+    nome: String
+    especie: EspecieEnum
+}
+
+type Pet {
+    id: ID
+    nome: String
+    especie: String
+    raca: Raca
+    sexo: String
+    porte: String
+    cliente: Cliente
+    observacao: String
+    dataNascimento: Date
+}
+
+type PetsPaged {
+    content: [Pet]
+    totalElements: Int
+}
+
+type Servico {
+    id: ID
+    nome: String
+    descricao: String
+    precoPequeno: BigDecimal
+    precoMedio: BigDecimal
+    precoGrande: BigDecimal
+}
+
+type ServicosPaged {
+    content: [Servico]
+    totalElements: Int
 }

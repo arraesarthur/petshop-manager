@@ -1,6 +1,8 @@
 package co.arthur.petshop.petshop_api.service;
 
 import co.arthur.petshop.petshop_api.entity.Cliente;
+import co.arthur.petshop.petshop_api.exception.NotFoundException;
+import co.arthur.petshop.petshop_api.exception.VinculadoException;
 import co.arthur.petshop.petshop_api.input.ClienteFilterInput;
 import co.arthur.petshop.petshop_api.input.ClienteInput;
 import co.arthur.petshop.petshop_api.repository.ClienteRepository;
@@ -10,7 +12,10 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -18,19 +23,34 @@ public class ClienteService {
     private final ClienteRepository clienteRepository;
     private final ClienteSpecification clienteSpecification;
 
-    public Page<Cliente> findAll(ClienteFilterInput filter) {
+    public Page<Cliente> findAllPaged(ClienteFilterInput filter) {
         BooleanBuilder where = new BooleanBuilder();
 
         clienteSpecification.addFilterCondition(where, filter);
-        return clienteRepository.findAll(where, PageRequest.of(filter.getPage(), filter.getSize()));
+        Sort sortOrdemAlfabetica = Sort.by("nome").ascending();
+        return clienteRepository.findAll(where, PageRequest.of(filter.getPage(), filter.getSize(), sortOrdemAlfabetica));
+    }
+
+    public List<Cliente> findAll() {
+        return clienteRepository.findAllByAtivoTrue();
     }
 
     public Cliente findById(Long id) {
-        return clienteRepository.findById(id).orElse(null);
+        return clienteRepository.findByIdAndAtivoTrue(id).orElseThrow(() -> new NotFoundException("Cliente", id));
     }
 
-    public void remover(Cliente id) {
-        clienteRepository.delete(id);
+    public void remover(Long id) {
+        Cliente cliente = findById(id);
+
+        boolean temPetAtivo = cliente.getPets().stream()
+                .anyMatch(pet -> Boolean.TRUE.equals(pet.getAtivo()));
+
+        if (temPetAtivo) {
+            throw new VinculadoException("Cliente", "Pet(s)");
+        }
+
+        cliente.setAtivo(false);
+        clienteRepository.save(cliente);
     }
 
     @Transactional

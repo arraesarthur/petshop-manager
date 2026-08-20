@@ -3,51 +3,45 @@ import { FormInput } from '@/core/components/form-input'
 import { useContext, useState } from 'react'
 import { Button } from '../../../components/ui/button'
 import { useLoginForm } from '../hooks/use-login-form'
-import {
-  useGoogleLogin,
-  type TokenResponse
-} from '@react-oauth/google'
+import { useGoogleLogin, type TokenResponse } from '@react-oauth/google'
 import { useNavigate } from 'react-router-dom'
-import { AuthContext } from '@/core/context/auth-context'
 import { authService } from '../utils/auth-service'
 import { FormInputPassword } from '@/core/components/form-input-password'
+import { AuthContext } from '@/core/context/auth-context'
 
 export const Login = () => {
   const navigate = useNavigate()
-  const { login } = useContext(AuthContext)
+  const {login} = useContext(AuthContext)
   const [mode, setMode] = useState('login')
   const isLogin = mode === 'login'
 
-  const { form, submitForm } = useLoginForm(mode, login)
+  const { form, submitForm } = useLoginForm(mode)
 
   const {
     handleSubmit,
     formState: { isDirty }
   } = form
 
- const handleGoogleSuccess = async (tokenResponse: TokenResponse) => {
-
-  try {
-    const data = await authService.googleLogin(
-      tokenResponse.access_token
-    )
-    login(data.accessToken)
-    navigate('/')
-  } catch (error) {
-    console.error('Google login error:', error)
+  const handleGoogleSuccess = async (tokenResponse: TokenResponse) => {
+    try {
+      const data = await authService.googleLogin(tokenResponse.access_token)
+      login(data.accessToken, data.nomeCompleto, data.email, data.expiresIn)
+      navigate('/')
+    } catch (error) {
+      console.error('Google login error:', error)
+    }
   }
-}
 
   const handleGoogleError = () => {
     console.error('Google login failed')
   }
 
   const googleLogin = useGoogleLogin({
-  onSuccess: handleGoogleSuccess,
-  onError: handleGoogleError,
-  flow: 'implicit',
-  scope: 'openid profile email'
-})
+    onSuccess: handleGoogleSuccess,
+    onError: handleGoogleError,
+    flow: 'implicit',
+    scope: 'openid profile email'
+  })
   return (
     <div className='grid md:grid-cols-[55%_45%] grid-cols-1 min-h-screen overflow-hidden'>
       <div className='hidden md:block h-screen'>

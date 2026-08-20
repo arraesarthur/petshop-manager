@@ -55,7 +55,7 @@ public class AuthService {
 
         var jwtValue = jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
 
-        return new LoginResponse(jwtValue, expiresIn);
+        return new LoginResponse(jwtValue, expiresIn, user.get().getNomeCompleto(), user.get().getEmail());
     }
 
     public void register(RegisterRequest registerRequest) {
@@ -118,7 +118,7 @@ public class AuthService {
 
             var jwtValue = jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
 
-            return new LoginResponse(jwtValue, expiresIn);
+            return new LoginResponse(jwtValue, expiresIn, nomeCompleto, email);
 
         } catch (Exception e) {
             e.printStackTrace();
