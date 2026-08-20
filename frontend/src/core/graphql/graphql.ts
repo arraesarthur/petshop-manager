@@ -40,6 +40,21 @@ export type PetInput = {
   sexo: string;
 };
 
+export type ServicoFilterInput = {
+  busca?: string | null | undefined;
+  page: number;
+  size: number;
+};
+
+export type ServicoInput = {
+  descricao?: string | null | undefined;
+  id?: string | number | null | undefined;
+  nome: string;
+  precoGrande: number;
+  precoMedio: number;
+  precoPequeno: number;
+};
+
 export type RemoverClienteMutationVariables = Exact<{
   id: string | number;
 }>;
@@ -113,3 +128,33 @@ export type PetsPagedQueryVariables = Exact<{
 export type PetsPagedQuery = { pets: { totalElements: number | null, content: Array<{ id: string | null, nome: string | null, sexo: string | null, porte: string | null, especie: string | null, raca: { nome: string | null } | null, cliente: { nome: string | null, id: string | null } | null } | null> | null } | null };
 
 export type PetFragmentFragment = { id: string | null, nome: string | null, sexo: string | null, porte: string | null, especie: string | null, raca: { nome: string | null } | null, cliente: { nome: string | null, id: string | null } | null };
+
+export type RemoverServicoMutationVariables = Exact<{
+  id: string | number;
+}>;
+
+
+export type RemoverServicoMutation = { removerServico: boolean | null };
+
+export type ServicoQueryVariables = Exact<{
+  id: string | number;
+}>;
+
+
+export type ServicoQuery = { servico: { id: string | null, nome: string | null, descricao: string | null, precoPequeno: number | null, precoMedio: number | null, precoGrande: number | null } | null };
+
+export type SalvarServicoMutationVariables = Exact<{
+  filterInput: ServicoInput;
+}>;
+
+
+export type SalvarServicoMutation = { salvarServico: { id: string | null, nome: string | null, descricao: string | null, precoPequeno: number | null, precoMedio: number | null, precoGrande: number | null } | null };
+
+export type ServicosPagedQueryVariables = Exact<{
+  filterInput?: ServicoFilterInput | null | undefined;
+}>;
+
+
+export type ServicosPagedQuery = { servicosPaged: { totalElements: number | null, content: Array<{ id: string | null, nome: string | null, descricao: string | null, precoPequeno: number | null, precoMedio: number | null, precoGrande: number | null } | null> | null } | null };
+
+export type ServicoFragmentFragment = { id: string | null, nome: string | null, descricao: string | null, precoPequeno: number | null, precoMedio: number | null, precoGrande: number | null };

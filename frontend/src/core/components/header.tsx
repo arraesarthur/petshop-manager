@@ -31,7 +31,6 @@ const NAV_ITEMS = [
   { label: 'Atendimentos', href: '/' },
   { label: 'Clientes', href: '/clientes' },
   { label: 'Pets', href: '/pets' },
-  { label: 'Pacotes', href: '/pacotes' },
   { label: 'Serviços', href: '/servicos' }
 ]
 

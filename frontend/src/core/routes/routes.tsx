@@ -6,6 +6,8 @@ import { ClienteListagem } from '@/modules/cliente-listagem/ui/cliente-listagem'
 import { ClienteEdicao } from '@/modules/cliente-edicao/ui/cliente-edicao'
 import { PetListagem } from '@/modules/pet-listagem/ui/pet-listagem'
 import PetEdicao from '@/modules/pet-edicao/ui/pet-edicao'
+import { ServicoListagem } from '@/modules/servico-listagem/ui/servico-listagem'
+import { ServicoEdicao } from '@/modules/servico-edicao/ui/servico-edicao'
 
 export const router = createBrowserRouter([
   {
@@ -68,4 +70,28 @@ export const router = createBrowserRouter([
       </PrivateApp>
     )
   },
+  {
+    path: '/servicos',
+    element: (
+      <PrivateApp>
+        <ServicoListagem />
+      </PrivateApp>
+    )
+  },
+  {
+    path: '/editar/servicos/:id',
+    element: (
+      <PrivateApp>
+        <ServicoEdicao />
+      </PrivateApp>
+    )
+  },
+  {
+    path: '/servicos/novo',
+    element: (
+      <PrivateApp>
+        <ServicoEdicao />
+      </PrivateApp>
+    )
+  }
 ])

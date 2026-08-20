@@ -4,4 +4,7 @@ type Mutation {
 
     salvarPet(filterInput: PetInput): Pet
     removerPet(id: ID!): Boolean
+
+    salvarServico(filterInput: ServicoInput): Servico
+    removerServico(id: ID!): Boolean
 }

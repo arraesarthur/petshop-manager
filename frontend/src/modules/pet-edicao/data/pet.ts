@@ -53,9 +53,3 @@ export const SALVAR_PET_MUTATION = gql`
     }
   }
 `
-
-export const REMOVER_PET_MUTATION = gql`
-  mutation removerPet($id: ID!) {
-    removerPet(id: $id)
-  }
-`

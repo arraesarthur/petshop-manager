@@ -30,3 +30,18 @@ input PetInput {
     observacao: String
     dataNascimento: Date!
 }
+
+input ServicoFilterInput {
+    busca: String
+    page: Int!
+    size: Int!
+}
+
+input ServicoInput {
+    id: ID
+    nome: String!
+    descricao: String
+    precoPequeno: BigDecimal!
+    precoMedio: BigDecimal!
+    precoGrande: BigDecimal!
+}

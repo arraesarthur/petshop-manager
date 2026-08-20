@@ -6,4 +6,8 @@ type Query {
     pet(id: ID!): Pet
     pets(filterInput: PetFilterInput): PetsPaged
     racas(especie: EspecieEnum): [Raca]
+
+    servico(id: ID!): Servico
+    servicos: [Servico]
+    servicosPaged(filterInput: ServicoFilterInput): ServicosPaged
 }

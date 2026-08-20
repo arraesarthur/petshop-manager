@@ -6,13 +6,13 @@ const config: CodegenConfig = {
       'http://localhost:8080/graphql': {
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJiYWNrZW5kIiwic3ViIjoiMSIsImV4cCI6MTc4MjYxMzA2MCwiaWF0IjoxNzgyNTI2NjYwLCJyb2xlcyI6WyJBRE1JTiJdfQ.d-3e5FrjtmLtBdK89Fq-GkpEuhbVIwlAmEdoCOjZgY3Dz8gwG1EgHe34yNtKtH0QFhTAskrACwSEfQLc0TW0Uojy_Mf2P9hJluH22-6mPV0px2nUvmdlVaLCThKrlyafExr1C9k5Voejrts6hioP-cz7XOfdv9N5LLpPzx17SCBAmSyzy68BD2g7Iq2RGQW-Wci40vGLONzD7ICyAfDaWOp0v6SPbc_CV9TkmrihUokUgpqmBBAP-pFb3knBjafyLtQmzaPeT9brfbzqdf6RNya69qvsR2njYn7G3-DGnTGXnl9iX4nZ4N5eh-gnSPiGhanEMCz3xysviwtsqZ6eAw'
+            'Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJiYWNrZW5kIiwic3ViIjoiMSIsImV4cCI6MTc4NzI1MDI3OSwiaWF0IjoxNzg3MTYzODc5LCJyb2xlcyI6WyJBRE1JTiJdfQ.Uv0TAnCHiMjnqBWupg4mIP3HhLyuR2Qhpzti3GVnQWKdXe2ifPlihyFc3QgMCQwZoRXU6o8dOTdaz6-J8N3ZkSAAWnXQCm_mkaT21FOs4U647LJW_ObKVeLLAAe56o8b8mzvsZTd4q3q0CuAJXFtE_FHPtBqH7BWnHkoaNqEr9JHtZXD250HTD2py3Vx4njB1irSg6mgm7o0C9KJT9KY8lay9_lxJrEddIBfMwp7ZKm4Fqr9d0wbj8sJ9iRY3fhWo3az-1E29GrGNmHhVYPsjUIZcx_vUMTtevH_HVghCN-nFeCd_7iEF9lIEboybZ-xYb0GoseoCxne9bUF12sAhQ'
         }
       }
     }
   ],
 
-  documents: ['src/**/*.{ts,tsx}', '!src/gql/**/*'],
+  documents: ['src/**/*.{ts,tsx}', '!src/gql/**/*', '!src/core/graphql/**'],
 
   generates: {
     './src/core/graphql/graphql.ts': {
