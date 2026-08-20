@@ -2,15 +2,24 @@ import { useFetcher } from '@/core/hooks/use-fetcher'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
+import type { ClientError } from 'graphql-request'
+import type {
+  RemoverPetMutation,
+  SalvarPetMutation
+} from '@/core/graphql/graphql'
 import { DELETE_PET_MUTATION } from '@/modules/pet-core/pet'
 import { SALVAR_PET_MUTATION } from '../data/pet'
 
 type salvarPetInput = {
   id?: string
   nome: string
-  telefone: string
-  instagram: string
-  endereco: string
+  especie: string
+  racaId: string
+  sexo: string
+  porte: string
+  clienteId: string
+  observacao: string
+  dataNascimento: string
 }
 
 export const usePetEdicaoHandler = () => {
@@ -18,7 +27,7 @@ export const usePetEdicaoHandler = () => {
   const fetch = useFetcher()
   const queryClient = useQueryClient()
 
-  const removerPet = useMutation({
+  const removerPet = useMutation<RemoverPetMutation, ClientError, string>({
     mutationKey: ['pet-remocao-mutation'],
     mutationFn: (id: string) => {
       return fetch(DELETE_PET_MUTATION, {
@@ -33,7 +42,11 @@ export const usePetEdicaoHandler = () => {
     }
   })
 
-  const salvarPet = useMutation({
+  const salvarPet = useMutation<
+    SalvarPetMutation,
+    ClientError,
+    salvarPetInput
+  >({
     mutationKey: ['pet-salvar-mutation'],
     mutationFn: (input: salvarPetInput) => {
       return fetch(SALVAR_PET_MUTATION, {
@@ -66,7 +79,7 @@ export const usePetEdicaoHandler = () => {
   const salvar = async (input: salvarPetInput) => {
     try {
       const pet = await salvarPet.mutateAsync(input)
-      toast.success(`Pet ${pet.salvarPet.nome} salvo com sucesso`)
+      toast.success(`Pet ${pet.salvarPet?.nome} salvo com sucesso`)
       navigate('/pets')
     } catch (error) {
       toast.error('Erro: ' + error?.response?.errors?.[0]?.message)

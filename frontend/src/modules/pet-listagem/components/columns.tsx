@@ -1,4 +1,3 @@
-import type { Pet } from '@/core/graphql/graphql'
 import { type ColumnDef } from '@tanstack/react-table'
 import { MoreHorizontalIcon, Edit2Icon, Trash2Icon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -13,7 +12,17 @@ import {
 import ModalConfirmacao from '@/core/components/modal-confirmacao'
 import { usePetHandler } from '../hooks/use-pet-handler'
 
-const AcoesCelulas = ({ pet }: { pet: Pet }) => {
+type PetRow = {
+  id: string
+  nome: string
+  especie: string
+  sexo: string
+  porte: string
+  raca?: { nome?: string } | null
+  cliente?: { nome?: string } | null
+}
+
+const AcoesCelulas = ({ pet }: { pet: PetRow }) => {
   const { handleEditar, handleRemover } = usePetHandler()
 
   return (
@@ -53,7 +62,7 @@ const AcoesCelulas = ({ pet }: { pet: Pet }) => {
     </div>
   )
 }
-export const columns: ColumnDef<Pet>[] = [
+export const columns: ColumnDef<PetRow>[] = [
   {
     accessorKey: 'nome',
     header: 'Nome'

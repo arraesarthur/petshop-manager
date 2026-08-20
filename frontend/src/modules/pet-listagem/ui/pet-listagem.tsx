@@ -52,6 +52,7 @@ export const PetListagem = () => {
           )}
         </div>
         <FormSingleSelect
+          label='Cliente'
           placeholder='Selecione um cliente...'
           data={clientes}
           value={clienteId?.toString() ?? ''}

@@ -27,7 +27,9 @@ const noContentMock = {
   },
   setBusca: vi.fn(),
   setPagination: vi.fn(),
-  totalElements: 0
+  totalElements: 0,
+  clienteId: undefined,
+  setClienteId: vi.fn()
 }
 
 const contentMock = {
@@ -56,7 +58,9 @@ const contentMock = {
   },
   setBusca: vi.fn(),
   setPagination: vi.fn(),
-  totalElements: 2
+  totalElements: 2,
+  clienteId: undefined,
+  setClienteId: vi.fn()
 }
 
 vi.mocked(useClienteListagem).mockReturnValue(contentMock)

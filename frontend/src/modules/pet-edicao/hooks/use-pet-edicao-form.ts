@@ -2,10 +2,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, useWatch } from 'react-hook-form'
 import { useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { z } from 'zod'
 import { usePetEdicaoQuery } from './use-pet-edicao-query'
 import { usePetEdicaoHandler } from './use-pet-edicao-handler'
 import { useRacasQuery } from './use-racas-query'
 import { zodSchema } from '../utils/schema'
+
+type PetFormInput = z.input<typeof zodSchema>
+type PetFormValues = z.output<typeof zodSchema>
 
 export const usePetEdicaoForm = (id: string) => {
   const navigate = useNavigate()
@@ -21,11 +25,11 @@ export const usePetEdicaoForm = (id: string) => {
       porte: pet?.porte ?? '',
       clienteId: pet?.cliente?.id ?? '',
       observacao: pet?.observacao ?? '',
-      dataNascimento: pet?.dataNascimento ?? ''
+      dataNascimento: (pet?.dataNascimento as string | undefined) ?? ''
     }
   }, [pet])
   
-  const form = useForm({
+  const form = useForm<PetFormInput, unknown, PetFormValues>({
     defaultValues: initialValues,
     resolver: zodResolver(zodSchema),
     mode: 'onBlur'

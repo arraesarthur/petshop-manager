@@ -1,4 +1,3 @@
-import type { Cliente } from '@/core/graphql/graphql'
 import { type ColumnDef } from '@tanstack/react-table'
 import { MoreHorizontalIcon, Edit2Icon, Trash2Icon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -13,7 +12,15 @@ import {
 import { useClienteHandler } from '../hooks/use-cliente-handler'
 import ModalConfirmacao from '@/core/components/modal-confirmacao'
 
-const AcoesCelulas = ({ cliente }: { cliente: Cliente }) => {
+type ClienteRow = {
+  id: string
+  nome: string
+  telefone: string
+  instagram: string
+  endereco: string
+}
+
+const AcoesCelulas = ({ cliente }: { cliente: ClienteRow }) => {
   const { handleEditar, handleRemover } = useClienteHandler()
 
   return (
@@ -53,7 +60,7 @@ const AcoesCelulas = ({ cliente }: { cliente: Cliente }) => {
     </div>
   )
 }
-export const columns: ColumnDef<Cliente>[] = [
+export const columns: ColumnDef<ClienteRow>[] = [
   {
     accessorKey: 'nome',
     header: 'Nome'

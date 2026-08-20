@@ -4,6 +4,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { SALVAR_CLIENTE_MUTATION } from '../data/cliente'
 import { toast } from 'sonner'
+import type { ClientError } from 'graphql-request'
+import type {
+  RemoverClienteMutation,
+  SalvarClienteMutation
+} from '@/core/graphql/graphql'
 
 type salvarClienteInput = {
   id?: string
@@ -18,7 +23,11 @@ export const useClienteEdicaoHandler = () => {
   const fetch = useFetcher()
   const queryClient = useQueryClient()
 
-  const removerCliente = useMutation({
+  const removerCliente = useMutation<
+    RemoverClienteMutation,
+    ClientError,
+    string
+  >({
     mutationKey: ['cliente-remocao-mutation'],
     mutationFn: (id: string) => {
       return fetch(DELETE_CLIENTE_MUTATION, {
@@ -33,7 +42,11 @@ export const useClienteEdicaoHandler = () => {
     }
   })
 
-  const salvarCliente = useMutation({
+  const salvarCliente = useMutation<
+    SalvarClienteMutation,
+    ClientError,
+    salvarClienteInput
+  >({
     mutationKey: ['cliente-salvar-mutation'],
     mutationFn: (input: salvarClienteInput) => {
       return fetch(SALVAR_CLIENTE_MUTATION, {
@@ -65,7 +78,7 @@ export const useClienteEdicaoHandler = () => {
   const salvar = async (input: salvarClienteInput) => {
     try {
       const cliente = await salvarCliente.mutateAsync(input)
-      toast.success(`Cliente ${cliente.salvarCliente.nome} salvo com sucesso`)
+      toast.success(`Cliente ${cliente.salvarCliente?.nome} salvo com sucesso`)
       navigate('/clientes')
     } catch (error) {
       toast.error('Erro: ' + error?.response?.errors?.[0]?.message)
